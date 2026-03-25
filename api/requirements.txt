@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+qiskit
+qiskit-aer
+pydantic
+python-dotenv
