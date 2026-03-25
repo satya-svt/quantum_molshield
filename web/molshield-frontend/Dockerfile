@@ -5,8 +5,11 @@ FROM node:20-alpine AS deps
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci
+# Install build tools needed for native modules (bufferutil etc.)
+RUN apk add --no-cache python3 make g++
+
+COPY package.json package-lock.json* ./
+RUN npm install --legacy-peer-deps --ignore-scripts
 
 # ─────────────────────────────────────────────
 # Stage 2: Builder
