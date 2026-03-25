@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
     // watching the entire monorepo (including the Python backend).
     root: '.',
   },
+  // Required for Docker multi-stage builds: produces a self-contained
+  // server.js in .next/standalone that can run without node_modules.
+  output: process.env.NODE_ENV === 'production' ? 'standalone' : undefined,
 };
 
 export default nextConfig;

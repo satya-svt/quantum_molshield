@@ -26,7 +26,7 @@ interface ApiResponse {
 }
 
 export default function ApiExplorerPage() {
-  const [endpoint, setEndpoint] = useState('http://127.0.0.1:8000/run_shielded');
+  const [endpoint, setEndpoint] = useState(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000'}/run_shielded`);
   const [smiles, setSmiles] = useState('CCO');
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<ApiResponse | null>(null);

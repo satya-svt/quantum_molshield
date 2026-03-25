@@ -1,0 +1,41 @@
+services:
+  # ──────────────────────────────────────────
+  # Backend: FastAPI QEC Shield API
+  # ──────────────────────────────────────────
+  backend:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: molshield-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/docs')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ──────────────────────────────────────────
+  # Frontend: Next.js Drug Discovery Demo
+  # ──────────────────────────────────────────
+  frontend:
+    build:
+      context: ./web/molshield-frontend
+      dockerfile: Dockerfile
+      args:
+        # Tells Next.js to call the backend container by service name
+        NEXT_PUBLIC_API_URL: http://backend:8000
+    container_name: molshield-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  default:
+    name: molshield-network

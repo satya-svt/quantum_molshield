@@ -1,0 +1,29 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments  
+.venv/
+venv/
+env/
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# Misc
+.DS_Store
+*.egg-info/
+dist/
+build/
+
+# Do NOT ignore .env — pass secrets at runtime via docker-compose env_file or -e
+.env

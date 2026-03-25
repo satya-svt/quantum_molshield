@@ -95,7 +95,8 @@ export default function SimulatePage() {
       const qasm_string = 'OPENQASM 2.0; include "qelib1.inc"; qreg q[1]; creg c[1]; h q[0]; measure q[0] -> c[0];';
       const payload = { qasm_string, error_rate: 0.05, shots: 1024 };
 
-      const res = await fetch('http://127.0.0.1:8000/run_shielded', {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+      const res = await fetch(`${apiUrl}/run_shielded`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
